@@ -1,14 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { PointsDashboard } from "@/components/PointsDashboard";
 import { SubscriptionPlans } from "@/components/SubscriptionPlans";
 import { ReferralSystem } from "@/components/ReferralSystem";
-import { Music, Coins, CreditCard, Users } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useUserPoints } from "@/hooks/useUserPoints";
+import { Music, Coins, CreditCard, Users, LogOut, Loader2 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("player");
+  const { user, loading, signOut } = useAuth();
+  const { points, loading: pointsLoading } = useUserPoints();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -40,8 +65,13 @@ const Index = () => {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/20">
                   <Coins className="w-5 h-5 text-accent" />
-                  <span className="font-bold">3,250 pts</span>
+                  <span className="font-bold">
+                    {pointsLoading ? "..." : `${points.toLocaleString()} pts`}
+                  </span>
                 </div>
+                <Button variant="ghost" size="icon" onClick={signOut} title="Sign out">
+                  <LogOut className="w-5 h-5" />
+                </Button>
               </div>
             </div>
           </div>

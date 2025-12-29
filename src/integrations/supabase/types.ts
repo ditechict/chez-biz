@@ -424,14 +424,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      check_daily_limit: {
-        Args: { user_uuid: string }
-        Returns: number
-      }
-      get_user_points: {
-        Args: { user_uuid: string }
-        Returns: number
-      }
+      check_daily_limit: { Args: { user_uuid: string }; Returns: number }
+      get_user_points: { Args: { user_uuid: string }; Returns: number }
     }
     Enums: {
       [_ in never]: never
