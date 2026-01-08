@@ -11,7 +11,7 @@ import { useUserPoints } from "@/hooks/useUserPoints";
 import { Music, Coins, CreditCard, Users, LogOut, Loader2 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const Index = () => {
+const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("player");
   const { user, loading, signOut } = useAuth();
   const { points, loading: pointsLoading } = useUserPoints();
@@ -138,4 +138,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Dashboard;
