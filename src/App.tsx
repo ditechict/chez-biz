@@ -4,7 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import Index from "./pages/Index";
+import Landing from "./pages/Landing";
+import Gallery from "./pages/Gallery";
+import Press from "./pages/Press";
+import Events from "./pages/Events";
+import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -18,9 +22,19 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            {/* Public Artist Pages */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/press" element={<Press />} />
+            <Route path="/events" element={<Events />} />
+            
+            {/* Auth */}
             <Route path="/auth" element={<Auth />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            
+            {/* Protected Fan Dashboard (BeatRewards) */}
+            <Route path="/app" element={<Dashboard />} />
+            
+            {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
