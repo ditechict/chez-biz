@@ -93,6 +93,81 @@ export type Database = {
           },
         ]
       }
+      events: {
+        Row: {
+          city: string
+          country: string
+          created_at: string
+          event_date: string
+          id: string
+          published: boolean
+          sold_out: boolean
+          ticket_url: string | null
+          updated_at: string
+          venue: string
+        }
+        Insert: {
+          city: string
+          country: string
+          created_at?: string
+          event_date: string
+          id?: string
+          published?: boolean
+          sold_out?: boolean
+          ticket_url?: string | null
+          updated_at?: string
+          venue: string
+        }
+        Update: {
+          city?: string
+          country?: string
+          created_at?: string
+          event_date?: string
+          id?: string
+          published?: boolean
+          sold_out?: boolean
+          ticket_url?: string | null
+          updated_at?: string
+          venue?: string
+        }
+        Relationships: []
+      }
+      gallery_images: {
+        Row: {
+          alt_text: string
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          published: boolean
+          size: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          alt_text: string
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          published?: boolean
+          size?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          published?: boolean
+          size?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       plays: {
         Row: {
           completed: boolean
@@ -175,6 +250,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      press_assets: {
+        Row: {
+          asset_type: string
+          created_at: string
+          description: string | null
+          external_url: string | null
+          file_url: string | null
+          id: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          asset_type?: string
+          created_at?: string
+          description?: string | null
+          external_url?: string | null
+          file_url?: string | null
+          id?: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          asset_type?: string
+          created_at?: string
+          description?: string | null
+          external_url?: string | null
+          file_url?: string | null
+          id?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -372,6 +483,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       withdrawals: {
         Row: {
           amount: number
@@ -428,7 +560,7 @@ export type Database = {
       get_user_points: { Args: { user_uuid: string }; Returns: number }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -555,6 +687,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
