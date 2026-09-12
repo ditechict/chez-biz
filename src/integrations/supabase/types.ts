@@ -558,13 +558,6 @@ export type Database = {
     Functions: {
       check_daily_limit: { Args: { user_uuid: string }; Returns: number }
       get_user_points: { Args: { user_uuid: string }; Returns: number }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
     }
     Enums: {
       app_role: "admin" | "user"
