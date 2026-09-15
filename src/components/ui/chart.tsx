@@ -89,16 +89,36 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
+type ChartTooltipItem = {
+  dataKey?: string | number;
+  name?: string | number;
+  value?: number | string | Array<number | string>;
+  color?: string;
+  payload?: Record<string, unknown> & { fill?: string };
+};
+
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<"div"> & {
-      hideLabel?: boolean;
-      hideIndicator?: boolean;
-      indicator?: "line" | "dot" | "dashed";
-      nameKey?: string;
-      labelKey?: string;
-    }
+  React.ComponentProps<"div"> & {
+    active?: boolean;
+    payload?: ChartTooltipItem[];
+    label?: React.ReactNode;
+    labelFormatter?: (value: React.ReactNode, payload: ChartTooltipItem[]) => React.ReactNode;
+    labelClassName?: string;
+    formatter?: (
+      value: ChartTooltipItem["value"],
+      name: ChartTooltipItem["name"],
+      item: ChartTooltipItem,
+      index: number,
+      payload: ChartTooltipItem["payload"],
+    ) => React.ReactNode;
+    color?: string;
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    indicator?: "line" | "dot" | "dashed";
+    nameKey?: string;
+    labelKey?: string;
+  }
 >(
   (
     {
@@ -167,7 +187,7 @@ const ChartTooltipContent = React.forwardRef<
 
             return (
               <div
-                key={item.dataKey}
+                key={String(item.dataKey ?? index)}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center",
@@ -227,13 +247,21 @@ ChartTooltipContent.displayName = "ChartTooltip";
 
 const ChartLegend = RechartsPrimitive.Legend;
 
+type ChartLegendItem = {
+  value?: string | number;
+  dataKey?: string | number;
+  color?: string;
+  payload?: Record<string, unknown>;
+};
+
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean;
-      nameKey?: string;
-    }
+  React.ComponentProps<"div"> & {
+    payload?: ChartLegendItem[];
+    verticalAlign?: "top" | "middle" | "bottom";
+    hideIcon?: boolean;
+    nameKey?: string;
+  }
 >(({ className, hideIcon = false, payload, verticalAlign = "bottom", nameKey }, ref) => {
   const { config } = useChart();
 
@@ -252,7 +280,7 @@ const ChartLegendContent = React.forwardRef<
 
         return (
           <div
-            key={item.value}
+            key={String(item.value ?? item.dataKey)}
             className={cn("flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground")}
           >
             {itemConfig?.icon && !hideIcon ? (
