@@ -1,9 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Users, Copy, Gift, TrendingUp, CheckCircle, Clock } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Users, Gift, CheckCircle, Clock, PauseCircle } from "lucide-react";
 
 const mockReferrals = [
   { name: "Alex M.", status: "active", daysActive: 15, pointsEarned: 100 },
@@ -12,14 +8,6 @@ const mockReferrals = [
 ];
 
 export const ReferralSystem = () => {
-  const [referralCode] = useState("MUSIC2024XYZ");
-  const referralLink = `https://beatrewards.app/join/${referralCode}`;
-  
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(referralLink);
-    toast.success("Referral link copied to clipboard!");
-  };
-
   const activeReferrals = mockReferrals.filter(r => r.status === "active").length;
   const pendingReferrals = mockReferrals.filter(r => r.status === "pending").length;
   const totalEarned = mockReferrals.reduce((acc, r) => acc + r.pointsEarned, 0);
@@ -31,11 +19,11 @@ export const ReferralSystem = () => {
         <div className="flex items-center justify-center gap-2 mb-2">
           <Users className="w-8 h-8 text-primary" />
           <h2 className="text-3xl font-bold bg-gradient-accent bg-clip-text text-transparent">
-            Refer & Earn
+             Referrals
           </h2>
         </div>
         <p className="text-muted-foreground">
-          Invite friends and earn 100 points for each active referral
+           Referral rewards are currently paused
         </p>
       </div>
 
@@ -80,46 +68,12 @@ export const ReferralSystem = () => {
         </Card>
       </div>
 
-      {/* Referral Link */}
-      <Card className="glass border-primary/20 p-6">
-        <h3 className="text-lg font-bold mb-4">Your Referral Link</h3>
-        <div className="flex gap-2">
-          <Input 
-            value={referralLink} 
-            readOnly 
-            className="bg-secondary/50 border-border/50"
-          />
-          <Button variant="gradient" onClick={copyToClipboard}>
-            <Copy className="w-4 h-4 mr-2" />
-            Copy
-          </Button>
-        </div>
-      </Card>
-
-      {/* Referral Requirements */}
       <Card className="glass border-border/50 p-6">
         <div className="flex items-start gap-3 mb-4">
-          <TrendingUp className="w-5 h-5 text-primary mt-1" />
+          <PauseCircle className="w-5 h-5 text-muted-foreground mt-1" />
           <div>
-            <h3 className="font-bold mb-2">How Referrals Work</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Share your unique referral link with friends</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>They must listen ≥30 minutes/day and watch ≥1 ad/day</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>After 7 consecutive days of activity, you both earn 100 points</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>No limit on referrals - the more active friends, the more you earn!</span>
-              </li>
-            </ul>
+            <h3 className="font-bold mb-2">New earning is unavailable</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">Existing referral records and previously earned points are preserved. New invitations cannot generate points while rewards are paused.</p>
           </div>
         </div>
       </Card>

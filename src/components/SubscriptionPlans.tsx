@@ -11,8 +11,8 @@ const plans = [
     users: 1,
     features: [
       "Unlimited streaming",
-      "Earn points system",
-      "Ad-supported rewards",
+      "Existing point balance accepted",
+      "Ad-free listening",
       "Offline mode",
       "High quality audio"
     ],
@@ -45,7 +45,7 @@ const plans = [
       "5 Premium accounts",
       "Family mix playlist",
       "Parental controls",
-      "Enhanced rewards"
+      "Shared listening controls"
     ],
     gradient: "from-violet-500 to-purple-500"
   },
@@ -60,7 +60,7 @@ const plans = [
       "10 Premium accounts",
       "Group sessions",
       "Collaborative playlists",
-      "Maximum rewards"
+      "Priority group support"
     ],
     gradient: "from-blue-500 to-violet-500"
   }
@@ -74,7 +74,7 @@ export const SubscriptionPlans = () => {
           Choose Your Plan
         </h2>
         <p className="text-muted-foreground">
-          Cover your subscription with earned points or upgrade anytime
+          Use your existing point balance toward a subscription, or upgrade anytime
         </p>
       </div>
 

@@ -58,7 +58,7 @@ const Dashboard = () => {
                   <h1 className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">
                     BeatRewards
                   </h1>
-                  <p className="text-xs text-muted-foreground">Stream & Earn</p>
+                  <p className="text-xs text-muted-foreground">Che.z Bizzie listening room</p>
                 </div>
               </div>
               
@@ -105,7 +105,7 @@ const Dashboard = () => {
                   <h2 className="text-4xl font-bold bg-gradient-accent bg-clip-text text-transparent">
                     Now Playing
                   </h2>
-                  <p className="text-muted-foreground">Earn 1 point per track (minimum 60 seconds)</p>
+                   <p className="text-muted-foreground">Listen to the official catalog. Rewards are currently paused.</p>
                 </div>
                 <MusicPlayer />
               </TabsContent>
