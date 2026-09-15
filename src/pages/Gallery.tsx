@@ -6,17 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useGalleryImages } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
 
-const spanFor = (size: string) => {
-  switch (size) {
-    case "tall":
-      return "col-span-12 md:col-span-5 aspect-[3/4]";
-    case "wide":
-      return "col-span-12 md:col-span-7 aspect-[4/3]";
-    default:
-      return "col-span-6 md:col-span-4 aspect-square";
-  }
-};
-
 const Gallery = () => {
   const { data: images = [], isLoading } = useGalleryImages();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -73,26 +62,26 @@ const Gallery = () => {
 
       <section className="px-6 md:px-12 pb-24">
         {isLoading ? (
-          <div className="grid grid-cols-12 gap-3 md:gap-4">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-3 md:gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="col-span-6 md:col-span-4 aspect-square bg-muted/20 animate-pulse" />
+              <div key={i} className="mb-3 md:mb-4 h-72 bg-muted/20 animate-pulse" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-12 gap-3 md:gap-4">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-3 md:gap-4">
             {images.map((image, index) => (
               <motion.div
                 key={image.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: Math.min(index, 6) * 0.08 }}
-                className={`${spanFor(image.size)} overflow-hidden cursor-pointer`}
+                className="mb-3 md:mb-4 break-inside-avoid overflow-hidden cursor-pointer"
                 onClick={() => setSelectedIndex(index)}
               >
                 <img
                   src={image.image_url}
                   alt={image.alt_text}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
               </motion.div>
