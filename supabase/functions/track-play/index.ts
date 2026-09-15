@@ -179,9 +179,12 @@ serve(async (req) => {
       console.error('Error recording play:', playError);
     }
 
-    // Get updated total points
-    const { data: totalPoints } = await supabase
-      .rpc('get_user_points', { user_uuid: user.id });
+    // Get updated total points (computed server-side for this user only)
+    const { data: txns } = await supabase
+      .from('points_transactions')
+      .select('amount')
+      .eq('user_id', user.id);
+    const totalPoints = (txns ?? []).reduce((sum, t) => sum + (t.amount ?? 0), 0);
 
     return new Response(JSON.stringify({
       success: true,
