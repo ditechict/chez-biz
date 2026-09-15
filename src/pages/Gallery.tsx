@@ -7,8 +7,6 @@ import { useGalleryImages } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
 
 const Gallery = () => {
-
-const Gallery = () => {
   const { data: images = [], isLoading } = useGalleryImages();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
