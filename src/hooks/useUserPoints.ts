@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { logger } from "@/lib/logger";
 
 export const useUserPoints = () => {
   const { user } = useAuth();
@@ -21,7 +22,7 @@ export const useUserPoints = () => {
       if (error) throw error;
       setPoints(data || 0);
     } catch (error) {
-      console.error("Error fetching points:", error);
+      logger.error("Error fetching points:", error);
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 interface Track {
   id: string;
@@ -27,7 +28,7 @@ export const useTracks = () => {
         if (error) throw error;
         setTracks(data || []);
       } catch (err) {
-        console.error("Error fetching tracks:", err);
+        logger.error("Error fetching tracks:", err);
         setError("Failed to load tracks");
       } finally {
         setLoading(false);
