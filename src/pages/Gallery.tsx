@@ -6,16 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useGalleryImages } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
 
-const spanFor = (size: string) => {
-  switch (size) {
-    case "tall":
-      return "col-span-12 md:col-span-5 aspect-[3/4]";
-    case "wide":
-      return "col-span-12 md:col-span-7 aspect-[4/3]";
-    default:
-      return "col-span-6 md:col-span-4 aspect-square";
-  }
-};
+const Gallery = () => {
 
 const Gallery = () => {
   const { data: images = [], isLoading } = useGalleryImages();
