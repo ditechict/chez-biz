@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useGalleryImages } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
+import { featuredTracks, spotifyArtistId } from "@/content/music";
+import { HeroCarousel } from "@/components/HeroCarousel";
+import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 
 const Landing = () => {
   const { data: images = [] } = useGalleryImages();
@@ -31,44 +34,7 @@ const Landing = () => {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative h-screen w-full overflow-hidden">
-        <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0"
-        >
-          {hero && (
-            <img src={hero.image_url} alt={hero.alt_text} className="w-full h-full object-cover" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute bottom-0 left-0 right-0 p-8 md:p-16"
-        >
-          <h1 className="text-5xl md:text-8xl font-light tracking-tight mb-4">{artist.nameUpper}</h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-md mb-8">
-            {artist.tagline} — {artist.genres} from {artist.base}
-          </p>
-          <div className="flex items-center gap-4">
-            <a href={artist.spotifyArtist} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 gap-2">
-                <Play className="w-4 h-4" /> Listen
-              </Button>
-            </a>
-            <Link to="/press">
-              <Button variant="ghost" size="lg" className="gap-2">
-                Press Kit <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-      </section>
+      <HeroCarousel currentImage={hero} />
 
       {/* Gallery preview */}
       <section className="py-24 px-6 md:px-12">
@@ -115,38 +81,35 @@ const Landing = () => {
       </section>
 
       {/* Music */}
-      <section className="py-24 px-6 md:px-12 border-t border-border/30">
-        <div className="max-w-4xl">
+      <section id="music" className="scroll-mt-16 border-t border-border/30 px-6 py-24 md:px-12 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-[minmax(280px,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-6">The Music</h2>
-            <h3 className="text-4xl md:text-6xl font-light mb-8">Beautiful. Quality.</h3>
-            <p className="text-muted-foreground text-lg max-w-2xl mb-8">
-              Afrobeats, R&amp;B and contemporary pop written and recorded independently in Lagos.
-              Warm vocals, patient grooves, songs built to last past the season.
+            <h2 className="mb-6 text-sm uppercase tracking-[0.3em] text-muted-foreground">The Music</h2>
+            <h3 className="mb-8 text-4xl font-light leading-tight md:text-6xl">Warm vocals.<br />Patient grooves.</h3>
+            <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
+              Afrobeats, R&amp;B and contemporary pop written and recorded independently in Lagos. Five songs, each carrying a different angle of the same measured, melodic voice.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <a href={artist.spotifyArtist} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="border-foreground/20">
-                  Spotify
-                </Button>
-              </a>
-              <a href={artist.youtube} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="border-foreground/20">
-                  YouTube
-                </Button>
-              </a>
-              <a href={artist.instagram} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="border-foreground/20">
-                  Instagram
-                </Button>
-              </a>
-            </div>
           </motion.div>
+          <div className="space-y-10">
+            {featuredTracks.map((track, index) => (
+              <motion.article key={track.spotifyId} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: Math.min(index, 3) * 0.08 }} className="border-t border-border/50 pt-5">
+                <div className="mb-4 grid grid-cols-[2rem_1fr] gap-3">
+                  <span className="pt-1 text-xs tabular-nums text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
+                  <div><h4 className="text-2xl font-light">{track.title}</h4><p className="mt-2 max-w-xl leading-relaxed text-muted-foreground">{track.description}</p></div>
+                </div>
+                <SpotifyEmbed type="track" spotifyId={track.spotifyId} title={track.title} compact />
+              </motion.article>
+            ))}
+            <div className="border-t border-border/50 pt-8">
+              <h4 className="mb-4 text-xs uppercase tracking-[0.24em] text-muted-foreground">More from Che.z Bizzie</h4>
+              <SpotifyEmbed type="artist" spotifyId={spotifyArtistId} title="Che.z Bizzie catalog" />
+            </div>
+          </div>
         </div>
       </section>
 

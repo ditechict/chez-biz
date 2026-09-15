@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Coins, TrendingUp, Users, PlayCircle, Eye, Share2, Gift } from "lucide-react";
+import { Coins, PauseCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 export const PointsDashboard = () => {
@@ -8,13 +8,6 @@ export const PointsDashboard = () => {
   const pointsToSubscription = 2000; // Solo plan
   const subscriptionProgress = (userPoints / pointsToSubscription) * 100;
   
-  const dailyEarnings = [
-    { icon: PlayCircle, label: "Listening", earned: 15, max: 50, description: "1pt per track (≥60s)" },
-    { icon: Eye, label: "Ads Watched", earned: 20, max: 100, description: "20pts per ad" },
-    { icon: Share2, label: "Sharing", earned: 0, max: 10, description: "10pts per share" },
-    { icon: Gift, label: "Referrals", earned: 100, max: 500, description: "100pts per active referral" },
-  ];
-
   return (
     <div className="space-y-6">
       {/* Points Balance */}
@@ -58,48 +51,11 @@ export const PointsDashboard = () => {
         </div>
       </Card>
 
-      {/* Daily Earnings */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <TrendingUp className="w-5 h-5 text-primary" />
-          <h3 className="text-xl font-bold">Today's Earnings</h3>
+      <Card className="glass border-border/50 p-6">
+        <div className="flex items-start gap-3">
+          <PauseCircle className="mt-0.5 h-5 w-5 text-muted-foreground" />
+          <div><h3 className="font-semibold">Rewards are paused</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Listening, ads, sharing and referral activities do not add points. Your existing balance and transaction history remain unchanged.</p></div>
         </div>
-        
-        <div className="grid gap-4 md:grid-cols-2">
-          {dailyEarnings.map((item, index) => {
-            const Icon = item.icon;
-            const progress = (item.earned / item.max) * 100;
-            
-            return (
-              <Card key={index} className="glass border-border/50 p-4 hover:border-primary/30 transition-smooth">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">{item.label}</p>
-                      <p className="text-xs text-muted-foreground">{item.description}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-bold text-accent">+{item.earned}</p>
-                    <p className="text-xs text-muted-foreground">/ {item.max}</p>
-                  </div>
-                </div>
-                
-                <Progress value={progress} className="h-1.5" />
-              </Card>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Daily Limit Warning */}
-      <Card className="glass border-accent/20 p-4 bg-accent/5">
-        <p className="text-sm text-center">
-          <span className="font-semibold text-accent">Daily Limit:</span> Maximum 50 points per day from all activities
-        </p>
       </Card>
     </div>
   );

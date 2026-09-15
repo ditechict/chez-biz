@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Download, Mail, ExternalLink } from "lucide-react";
+import { ArrowLeft, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePressAssets } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
+import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 
 const Press = () => {
   const { data: assets = [] } = usePressAssets();
@@ -156,11 +157,9 @@ const Press = () => {
                   <p className="font-medium mb-1">{item.title}</p>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
                 </div>
-                <a href={item.external_url!} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="gap-2 border-foreground/20">
-                    <ExternalLink className="w-4 h-4" /> Open
-                  </Button>
-                </a>
+                 {item.asset_type === "audio" && item.external_url.includes("/track/") && (
+                   <SpotifyEmbed type="track" spotifyId={item.external_url.split("/track/")[1].split("?")[0]} title={item.title} compact className="mt-4" />
+                 )}
               </div>
             ))}
           </div>
