@@ -43,11 +43,20 @@ serve(async (req) => {
       });
     }
 
-    const { track_id, listen_duration } = await req.json();
-    console.log(`Processing play for user ${user.id}, track ${track_id}, duration ${listen_duration}s`);
+    const body = await req.json().catch(() => null);
+    const track_id = body?.track_id;
+    const listen_duration = body?.listen_duration;
 
-    // Validate input
-    if (!track_id || typeof listen_duration !== 'number') {
+    // Validate input shape
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (
+      typeof track_id !== 'string' ||
+      !UUID_RE.test(track_id) ||
+      typeof listen_duration !== 'number' ||
+      !Number.isFinite(listen_duration) ||
+      listen_duration < 0 ||
+      listen_duration > 86400
+    ) {
       return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -62,12 +71,41 @@ serve(async (req) => {
       .maybeSingle();
 
     if (trackError || !track) {
-      console.error('Track not found:', trackError);
       return new Response(JSON.stringify({ error: 'Track not found' }), {
         status: 404,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+
+    // Reported duration cannot exceed the track length (small tolerance for buffering)
+    if (listen_duration > track.duration + 5) {
+      return new Response(JSON.stringify({ error: 'Invalid duration' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Replay protection: same track cannot be counted again immediately
+    const { data: recentPlay } = await supabase
+      .from('plays')
+      .select('created_at')
+      .eq('user_id', user.id)
+      .eq('track_id', track_id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (recentPlay) {
+      const elapsedMs = Date.now() - new Date(recentPlay.created_at).getTime();
+      const minGapMs = Math.max(30, Math.min(track.duration, 600)) * 1000;
+      if (elapsedMs < minGapMs) {
+        return new Response(JSON.stringify({ error: 'Too many requests' }), {
+          status: 429,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+    }
+
 
     // Check if user listened for at least 60 seconds
     const completed = listen_duration >= MIN_LISTEN_DURATION;
