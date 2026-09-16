@@ -150,7 +150,7 @@ const Landing = () => {
             <Link to="/press" className="hover:text-primary transition-colors">Press</Link>
             <Link to="/gallery" className="hover:text-primary transition-colors">Gallery</Link>
             <Link to="/events" className="hover:text-primary transition-colors">Events</Link>
-            <Link to="/auth" className="hover:text-primary transition-colors">Fan Portal</Link>
+            
           </div>
         </div>
       </footer>
