@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "7966025d-c5f1-45e5-b4aa-7e57b5b61e53",
-  "project_id": "01b21825-d0d2-402c-8718-5bbc41baecb1",
-  "url": "/__l5e/assets-v1/7966025d-c5f1-45e5-b4aa-7e57b5b61e53/che-z-bizzie-live-white.jpeg",
-  "r2_key": "a/v1/01b21825-d0d2-402c-8718-5bbc41baecb1/7966025d-c5f1-45e5-b4aa-7e57b5b61e53/che-z-bizzie-live-white.jpeg",
-  "original_filename": "che-z-bizzie-live-white.jpeg",
-  "size": 156919,
   "content_type": "image/jpeg",
-  "created_at": "2026-09-15T11:00:42Z"
+  "created_at": "2026-09-15T11:00:42Z",
+  "original_filename": "che-z-bizzie-live-white.jpeg",
+  "project_id": "5a69fde6-4148-440b-95f2-a8f930519b76",
+  "r2_key": "a/v1/5a69fde6-4148-440b-95f2-a8f930519b76/7966025d-c5f1-45e5-b4aa-7e57b5b61e53/che-z-bizzie-live-white.jpeg",
+  "size": 156919,
+  "url": "/__l5e/assets-v1/7966025d-c5f1-45e5-b4aa-7e57b5b61e53/che-z-bizzie-live-white.jpeg",
+  "version": 1
 }
