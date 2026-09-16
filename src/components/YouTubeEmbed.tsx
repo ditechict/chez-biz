@@ -29,7 +29,7 @@ export const YouTubeEmbed = ({ youtubeId, title, className }: YouTubeEmbedProps)
           className="group absolute inset-0 h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <img
-            src={`https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`}
+            src={`https://i.ytimg.com/vi/${youtubeId}/sddefault.jpg`}
             alt={`${title} video thumbnail`}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
