@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { artist } from "@/content/artist";
@@ -66,18 +66,15 @@ export const HeroCarousel = ({ currentImage }: HeroCarouselProps) => {
         touchStart.current = null;
       }}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        <motion.img
-          key={items[active].image}
-          src={items[active].image}
-          alt={items[active].alt}
-          className={`absolute inset-0 h-full w-full object-cover ${items[active].position}`}
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0.2 : 0.8, ease: "easeOut" }}
-        />
-      </AnimatePresence>
+      <motion.img
+        key={items[active].image}
+        src={items[active].image}
+        alt={items[active].alt}
+        className={`absolute inset-0 h-full w-full object-cover ${items[active].position}`}
+        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: reduceMotion ? 0.2 : 0.8, ease: "easeOut" }}
+      />
       <div className="absolute inset-0 bg-hero-overlay" />
 
       <div className="absolute inset-x-0 bottom-0 px-6 pb-10 md:px-12 md:pb-14">
