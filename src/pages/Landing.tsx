@@ -7,6 +7,8 @@ import { artist } from "@/content/artist";
 import { featuredTracks, spotifyArtistId } from "@/content/music";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
+import { channelUrl, featuredVideos } from "@/content/videos";
 
 const Landing = () => {
   const { data: images = [] } = useGalleryImages();
@@ -110,6 +112,69 @@ const Landing = () => {
               <SpotifyEmbed type="artist" spotifyId={spotifyArtistId} title="Che.z Bizzie catalog" />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Visuals */}
+      <section id="visuals" className="scroll-mt-16 border-t border-border/30 px-6 py-24 md:px-12 md:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+        >
+          <div>
+            <h2 className="mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Visuals</h2>
+            <h3 className="text-3xl font-light leading-tight md:text-5xl">Official videos</h3>
+          </div>
+          <a
+            href={channelUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            View channel
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <YouTubeEmbed youtubeId={featuredVideos[0].youtubeId} title={featuredVideos[0].title} />
+          <div className="mt-5 grid grid-cols-[2rem_1fr] gap-3 border-t border-border/50 pt-5">
+            <span className="pt-1 text-xs tabular-nums text-muted-foreground">01</span>
+            <div>
+              <h4 className="text-2xl font-light">{featuredVideos[0].title}</h4>
+              <p className="mt-2 max-w-xl leading-relaxed text-muted-foreground">{featuredVideos[0].description}</p>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-8">
+          {featuredVideos.slice(1).map((video, index) => (
+            <motion.article
+              key={video.youtubeId}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+            >
+              <YouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
+              <div className="mt-5 grid grid-cols-[2rem_1fr] gap-3 border-t border-border/50 pt-5">
+                <span className="pt-1 text-xs tabular-nums text-muted-foreground">
+                  {String(index + 2).padStart(2, "0")}
+                </span>
+                <div>
+                  <h4 className="text-xl font-light">{video.title}</h4>
+                  <p className="mt-2 leading-relaxed text-muted-foreground">{video.description}</p>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </section>
 

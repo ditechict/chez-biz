@@ -8,6 +8,13 @@
       "when": 1789558963464,
       "tag": "0000_fix_security_findings_2026_09_16",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789559993218,
+      "tag": "0001_seed_gallery_and_press_content",
+      "breakpoints": true
     }
   ]
 }

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { usePressAssets } from "@/hooks/useSiteContent";
 import { artist } from "@/content/artist";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
+import { YouTubeEmbed } from "@/components/YouTubeEmbed";
+import { featuredVideos } from "@/content/videos";
 
 const Press = () => {
   const { data: assets = [] } = usePressAssets();
@@ -146,7 +148,17 @@ const Press = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-8">Listen</h2>
+          <h2 className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-8">Listen &amp; Watch</h2>
+
+          <div className="mb-12 grid gap-8 md:grid-cols-2">
+            {featuredVideos.slice(0, 2).map((video) => (
+              <div key={video.youtubeId}>
+                <YouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
+                <p className="mt-3 text-sm text-muted-foreground">{video.title} — official video</p>
+              </div>
+            ))}
+          </div>
+
           <div className="space-y-6 max-w-2xl">
             {listening.map((item) => (
               <div

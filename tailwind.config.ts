@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          hover: "hsl(var(--brand-hover))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',

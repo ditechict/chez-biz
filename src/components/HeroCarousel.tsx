@@ -85,7 +85,7 @@ export const HeroCarousel = ({ currentImage }: HeroCarouselProps) => {
           </h1>
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <a href="#music">
-              <Button size="lg" className="gap-2 bg-foreground text-background hover:bg-foreground/90">
+              <Button size="lg" className="gap-2 bg-brand text-brand-foreground hover:bg-brand-hover">
                 <Play className="h-4 w-4 fill-current" /> Listen now
               </Button>
             </a>
