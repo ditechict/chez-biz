@@ -32,6 +32,10 @@ All colors MUST be HSL.
     --destructive: 0 62.8% 50.6%;
     --destructive-foreground: 0 0% 98%;
 
+    --brand: 357 52% 41%;
+    --brand-hover: 357 54% 34%;
+    --brand-foreground: 0 0% 98%;
+
     --border: 240 10% 15%;
     --input: 240 10% 15%;
     --ring: 280 80% 60%;
