@@ -20,15 +20,16 @@ export const MusicPlayer = () => {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="min-w-0">
           <SpotifyEmbed type="track" spotifyId={track.spotifyId} title={track.title} compact />
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{track.description}</p>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-brand transition-colors">{track.description}</p>
         </div>
         <div className="space-y-1 border-t border-border/50 pt-3 lg:border-l lg:border-t-0 lg:pl-5 lg:pt-0">
           {featuredTracks.map((item, index) => (
             <Button
               key={item.spotifyId}
               variant="ghost"
-              className={`h-auto w-full justify-start rounded-none px-3 py-3 text-left ${index === currentTrack ? "bg-secondary text-foreground" : "text-muted-foreground"}`}
+              className={`h-auto w-full justify-start rounded-none border-l-2 px-3 py-3 text-left transition-colors hover:bg-brand/10 hover:text-brand focus-visible:bg-brand/10 focus-visible:text-brand active:bg-brand/15 active:text-brand ${index === currentTrack ? "border-brand bg-brand/10 text-brand" : "border-transparent text-muted-foreground"}`}
               onClick={() => setCurrentTrack(index)}
+              aria-pressed={index === currentTrack}
             >
               <span className="w-6 text-xs tabular-nums">{String(index + 1).padStart(2, "0")}</span>
               <span className="truncate">{item.title}</span>
