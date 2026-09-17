@@ -53,7 +53,7 @@ const Landing = () => {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-12 gap-4 md:gap-6">
+        <div className="mx-auto grid max-w-5xl grid-cols-12 gap-3 md:gap-4">
           {preview.map((image, index) => (
             <motion.div
               key={image.id}
@@ -63,10 +63,10 @@ const Landing = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={
                 index === 0
-                  ? "col-span-12 md:col-span-7 aspect-[4/3] overflow-hidden"
+                  ? "col-span-12 h-64 overflow-hidden md:col-span-6 md:h-80"
                   : index === 1
-                    ? "col-span-6 md:col-span-5 aspect-square overflow-hidden"
-                    : "col-span-6 md:col-span-5 aspect-[3/4] overflow-hidden"
+                    ? "col-span-6 h-44 overflow-hidden md:col-span-3 md:h-64"
+                    : "col-span-6 h-44 overflow-hidden md:col-span-3 md:h-64"
               }
             >
               <Link to="/gallery">
@@ -99,10 +99,10 @@ const Landing = () => {
           </motion.div>
           <div className="space-y-10">
             {featuredTracks.map((track, index) => (
-              <motion.article key={track.spotifyId} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: Math.min(index, 3) * 0.08 }} className="border-t border-border/50 pt-5">
+              <motion.article key={track.spotifyId} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: Math.min(index, 3) * 0.08 }} className="group border-t border-border/50 pt-5 transition-colors focus-within:border-brand/50 hover:border-brand/50 active:border-brand/60">
                 <div className="mb-4 grid grid-cols-[2rem_1fr] gap-3">
-                  <span className="pt-1 text-xs tabular-nums text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
-                  <div><h4 className="text-2xl font-light">{track.title}</h4><p className="mt-2 max-w-xl leading-relaxed text-muted-foreground">{track.description}</p></div>
+                  <span className="pt-1 text-xs tabular-nums text-muted-foreground transition-colors group-hover:text-brand group-focus-within:text-brand group-active:text-brand">{String(index + 1).padStart(2, "0")}</span>
+                  <div><h4 className="text-2xl font-light transition-colors group-hover:text-brand group-focus-within:text-brand group-active:text-brand">{track.title}</h4><p className="mt-2 max-w-xl leading-relaxed text-muted-foreground transition-colors group-hover:text-brand group-focus-within:text-brand group-active:text-brand">{track.description}</p></div>
                 </div>
                 <SpotifyEmbed type="track" spotifyId={track.spotifyId} title={track.title} compact />
               </motion.article>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ArrowDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { artist } from "@/content/artist";
 import stageAsset from "@/assets/live/stage.jpeg.asset.json";
@@ -29,6 +29,18 @@ const slides = (currentImage?: HeroCarouselProps["currentImage"]) => [
     alt: "Che.z Bizzie performing in a white cap",
     caption: "Live and direct",
     position: "object-[44%_center]",
+  },
+  {
+    image: "/press/press-shot.jpg",
+    alt: "Che.z Bizzie performing on stage before green screens",
+    caption: "Commanding the room",
+    position: "object-[56%_center]",
+  },
+  {
+    image: "/press/studio-session.jpg",
+    alt: "Che.z Bizzie performing with a microphone under red stage lights",
+    caption: "Close to the music",
+    position: "object-[58%_center]",
   },
 ];
 
@@ -110,14 +122,6 @@ export const HeroCarousel = ({ currentImage }: HeroCarouselProps) => {
               </Button>
             ))}
             <span className="ml-2 hidden text-xs uppercase tracking-[0.2em] text-foreground/60 sm:inline">{items[active].caption}</span>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="icon" className="rounded-full border-foreground/30 bg-background/20 backdrop-blur-md" onClick={() => move(-1)} aria-label="Previous hero image">
-              <ChevronLeft />
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full border-foreground/30 bg-background/20 backdrop-blur-md" onClick={() => move(1)} aria-label="Next hero image">
-              <ChevronRight />
-            </Button>
           </div>
         </div>
       </div>
