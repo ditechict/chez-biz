@@ -3,10 +3,10 @@
 ## Hero slider
 - Remove only the two selected circular previous/next arrow controls.
 - Keep autoplay, swipe navigation, and the existing slide indicators so the slider remains usable without visual clutter.
-- Expand the hero from three to six curated, non-duplicated images. Keep the current lead image and strongest existing live image, then add:
-  - the black-shirt live performance,
-  - the red-shirt Lord of the Drinks performance,
-  - the close studio/live microphone portrait.
+- Expand the hero from three to five curated images by adding only:
+  - the wide stage performance from `press-shot.jpg`,
+  - the close studio/live microphone image from `studio-session.jpg`.
+- Do not use `portrait-neon.jpg` or `portrait-orange.jpg` in the hero.
 - Give each image a deliberate focal position so the artist remains clearly framed on desktop and mobile.
 
 ## Gallery preview under the hero
@@ -26,12 +26,12 @@
 
 ## Technical details
 - Update the hero slide data and remove only the arrow-control block in `HeroCarousel`.
-- Reuse the existing CDN image pointers and `/press/studio-session.jpg`; no new generated or external imagery.
+- Reuse the existing hero sources plus `/press/press-shot.jpg` and `/press/studio-session.jpg`; no new generated or external imagery.
 - Use the existing `brand` design token across button and music states, adjusting its HSL values to a duller true red.
 - Use grouped interaction states and stable dimensions; preserve reduced-motion behavior and accessibility labels.
 
 ## Verification
-- Confirm six distinct hero images load and crop correctly at desktop and mobile sizes.
+- Confirm five hero images load and crop correctly at desktop and mobile sizes.
 - Confirm arrow controls are gone while autoplay, indicators, and swipe still work.
 - Confirm the smaller gallery preview does not overlap or distort images.
 - Confirm hover, keyboard, touch/pressed, and selected music states are visibly red and readable.
