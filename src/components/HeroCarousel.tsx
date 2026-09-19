@@ -4,45 +4,47 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { artist } from "@/content/artist";
-import stageAsset from "@/assets/live/stage.jpeg.asset.json";
 import liveWhiteAsset from "@/assets/live/live-white.jpeg.asset.json";
+import liveBlackAsset from "@/assets/live/live-black.jpeg.asset.json";
 
 interface HeroCarouselProps {
   currentImage?: { image_url: string; alt_text: string };
 }
 
-const slides = (currentImage?: HeroCarouselProps["currentImage"]) => [
-  {
-    image: currentImage?.image_url ?? stageAsset.url,
-    alt: currentImage?.alt_text ?? "Che.z Bizzie performing on stage",
-    caption: "Lagos, Nigeria",
-    position: "object-center",
-  },
-  {
-    image: stageAsset.url,
-    alt: "Che.z Bizzie performing on a large stage",
-    caption: "Built for the stage",
-    position: "object-[55%_center]",
-  },
-  {
-    image: liveWhiteAsset.url,
-    alt: "Che.z Bizzie performing in a white cap",
-    caption: "Live and direct",
-    position: "object-[44%_center]",
-  },
-  {
-    image: "/press/press-shot.jpg",
-    alt: "Che.z Bizzie performing on stage before green screens",
-    caption: "Commanding the room",
-    position: "object-[56%_center]",
-  },
-  {
-    image: "/press/studio-session.jpg",
-    alt: "Che.z Bizzie performing with a microphone under red stage lights",
-    caption: "Close to the music",
-    position: "object-[58%_center]",
-  },
-];
+const slides = (currentImage?: HeroCarouselProps["currentImage"]) => {
+  return [
+    {
+      image: currentImage?.image_url ?? liveBlackAsset.url,
+      alt: currentImage?.alt_text ?? "Che.z Bizzie performing on stage",
+      caption: "Lagos, Nigeria",
+      position: "object-center",
+    },
+    {
+      image: liveWhiteAsset.url,
+      alt: "Che.z Bizzie performing in a white cap",
+      caption: "Live and direct",
+      position: "object-[44%_center]",
+    },
+    {
+      image: liveBlackAsset.url,
+      alt: "Che.z Bizzie performing in a black graphic shirt",
+      caption: "Room full of colour",
+      position: "object-[52%_center]",
+    },
+    {
+      image: "/press/press-shot.jpg",
+      alt: "Che.z Bizzie performing on stage before green screens",
+      caption: "Commanding the room",
+      position: "object-[56%_center]",
+    },
+    {
+      image: "/press/studio-session.jpg",
+      alt: "Che.z Bizzie performing with a microphone under red stage lights",
+      caption: "Close to the music",
+      position: "object-[58%_center]",
+    },
+  ];
+};
 
 export const HeroCarousel = ({ currentImage }: HeroCarouselProps) => {
   const items = slides(currentImage);
