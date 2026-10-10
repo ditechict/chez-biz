@@ -28,11 +28,11 @@ const Landing = () => {
             <Link to="/press" className="hover:text-primary transition-colors">Press</Link>
             <Link to="/events" className="hover:text-primary transition-colors">Events</Link>
           </div>
-          <a href={`mailto:${artist.bookingEmail}`}>
+          <Link to="/app?tab=book">
             <Button variant="outline" size="sm" className="border-foreground/20 hover:bg-foreground hover:text-background">
-              Booking
+              Book a show
             </Button>
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -198,11 +198,11 @@ const Landing = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <a href={`mailto:${artist.bookingEmail}`}>
-              <Button size="lg" variant="outline" className="border-foreground/20 hover:bg-foreground hover:text-background gap-2">
-                Get in Touch <ArrowRight className="w-4 h-4" />
+            <Link to="/app?tab=book">
+              <Button size="lg" className="gap-2 bg-brand text-brand-foreground hover:bg-brand-hover">
+                Book a show <ArrowRight className="w-4 h-4" />
               </Button>
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>

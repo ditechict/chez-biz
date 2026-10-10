@@ -6,15 +6,16 @@ import { Button } from "@/components/ui/button";
 import { artist } from "@/content/artist";
 import liveWhiteAsset from "@/assets/live/live-white.jpeg.asset.json";
 import liveBlackAsset from "@/assets/live/live-black.jpeg.asset.json";
+import stageAsset from "@/assets/live/stage.jpeg.asset.json";
 
 interface HeroCarouselProps {
   currentImage?: { image_url: string; alt_text: string };
 }
 
 const slides = (currentImage?: HeroCarouselProps["currentImage"]) => {
-  return [
+  const list = [
     {
-      image: currentImage?.image_url ?? liveBlackAsset.url,
+      image: currentImage?.image_url ?? stageAsset.url,
       alt: currentImage?.alt_text ?? "Che.z Bizzie performing on stage",
       caption: "Lagos, Nigeria",
       position: "object-center",
@@ -44,6 +45,9 @@ const slides = (currentImage?: HeroCarouselProps["currentImage"]) => {
       position: "object-[58%_center]",
     },
   ];
+  // Never show the same photo twice in the slider.
+  const seen = new Set<string>();
+  return list.filter((slide) => !seen.has(slide.image) && seen.add(slide.image));
 };
 
 export const HeroCarousel = ({ currentImage }: HeroCarouselProps) => {

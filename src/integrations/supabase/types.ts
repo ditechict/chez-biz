@@ -49,6 +49,57 @@ export type Database = {
           },
         ]
       }
+      booking_requests: {
+        Row: {
+          budget: string | null
+          city: string
+          created_at: string
+          email: string
+          event_date: string
+          event_type: string
+          expected_guests: number | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          status: string
+          user_id: string
+          venue: string | null
+        }
+        Insert: {
+          budget?: string | null
+          city: string
+          created_at?: string
+          email: string
+          event_date: string
+          event_type: string
+          expected_guests?: number | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          status?: string
+          user_id: string
+          venue?: string | null
+        }
+        Update: {
+          budget?: string | null
+          city?: string
+          created_at?: string
+          email?: string
+          event_date?: string
+          event_type?: string
+          expected_guests?: number | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          status?: string
+          user_id?: string
+          venue?: string | null
+        }
+        Relationships: []
+      }
       daily_limits: {
         Row: {
           ad_points: number
