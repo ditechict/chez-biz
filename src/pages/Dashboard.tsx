@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { BookingForm } from "@/components/BookingForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { MusicPlayer } from "@/components/MusicPlayer";
@@ -8,18 +9,19 @@ import { SubscriptionPlans } from "@/components/SubscriptionPlans";
 import { ReferralSystem } from "@/components/ReferralSystem";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserPoints } from "@/hooks/useUserPoints";
-import { Music, Coins, CreditCard, Users, LogOut, Loader2 } from "lucide-react";
+import { Music, Coins, CreditCard, Users, LogOut, Loader2, CalendarCheck } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("player");
+  const [params] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(params.get("tab") === "book" ? "book" : "player");
   const { user, loading, signOut } = useAuth();
   const { points, loading: pointsLoading } = useUserPoints();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate("/auth");
+      navigate(`/auth?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`);
     }
   }, [user, loading, navigate]);
 
@@ -80,7 +82,7 @@ const Dashboard = () => {
         {/* Main Content */}
         <main className="container mx-auto px-4 py-8">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 glass border border-border/50">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-5 glass border border-border/50">
               <TabsTrigger value="player" className="flex items-center gap-2 data-[state=active]:bg-gradient-primary data-[state=active]:text-primary-foreground">
                 <Music className="w-4 h-4" />
                 <span className="hidden sm:inline">Player</span>
@@ -96,6 +98,10 @@ const Dashboard = () => {
               <TabsTrigger value="referral" className="flex items-center gap-2 data-[state=active]:bg-gradient-primary data-[state=active]:text-primary-foreground">
                 <Users className="w-4 h-4" />
                 <span className="hidden sm:inline">Referral</span>
+              </TabsTrigger>
+              <TabsTrigger value="book" className="flex items-center gap-2 data-[state=active]:bg-brand data-[state=active]:text-brand-foreground">
+                <CalendarCheck className="w-4 h-4" />
+                <span className="hidden sm:inline">Book</span>
               </TabsTrigger>
             </TabsList>
 
@@ -116,6 +122,14 @@ const Dashboard = () => {
 
               <TabsContent value="plans" className="mt-0">
                 <SubscriptionPlans />
+              </TabsContent>
+
+              <TabsContent value="book" className="mt-0">
+                <div className="text-center space-y-2 mb-8">
+                  <h2 className="text-4xl font-bold">Book a show</h2>
+                  <p className="text-muted-foreground">Tell us about your event and the team will reply by email.</p>
+                </div>
+                <BookingForm />
               </TabsContent>
 
               <TabsContent value="referral" className="mt-0">
