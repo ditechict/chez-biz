@@ -22,11 +22,13 @@ const Auth = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const { signIn, signUp, user, loading } = useAuth();
   const navigate = useNavigate();
+  const rawRedirect = new URLSearchParams(window.location.search).get("redirect") ?? "/";
+  const redirectTo = rawRedirect.startsWith("/") && !rawRedirect.startsWith("//") ? rawRedirect : "/";
   const { toast } = useToast();
 
   useEffect(() => {
     if (!loading && user) {
-      navigate("/");
+      navigate(redirectTo);
     }
   }, [user, loading, navigate]);
 
@@ -66,7 +68,7 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You have successfully signed in.",
       });
-      navigate("/");
+      navigate(redirectTo);
     }
   };
 
@@ -93,7 +95,7 @@ const Auth = () => {
         title: "Account created!",
         description: "Welcome to BeatRewards. Start streaming to earn points!",
       });
-      navigate("/");
+      navigate(redirectTo);
     }
   };
 
