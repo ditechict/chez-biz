@@ -1,9 +1,9 @@
 # Roadmap
 
 ## Visual redesign
-- [ ] Refine the Afro-luxury palette and typography across existing pages.
-- [ ] Add restrained page transitions with reduced-motion support.
-- [ ] Verify navigation, readability, and preview diagnostics.
+- [x] Refine the Afro-luxury palette and typography across existing pages.
+- [x] Add restrained page transitions with reduced-motion support.
+- [x] Verify navigation, readability, and preview diagnostics (build clean; existing Spotify iframe warnings are external).
 
 - [ ] Remove only the two selected hero arrow controls.
 - [ ] Expand the hero from three to five images using press-shot and studio-session only.
